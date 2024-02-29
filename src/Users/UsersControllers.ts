@@ -1,8 +1,9 @@
 import { Request, Response, Router } from "express";
 
-import { AuthMiddleware } from "../Middlewares";
+import { AuthMiddleware , ValidateMiddleware} from "../Middlewares";
 
 import { getAllUsers, getOneUser } from "./UsersServices";
+import CreateUserDto from "./Dtos/CreateUserDto";
 
 const router = Router();
 
@@ -25,7 +26,9 @@ router.get("/:id", (req:Request, res:Response) =>{
     }
 });
 
-router.post("/",AuthMiddleware,(req:Request, res:Response) =>{
+router.post("/",ValidateMiddleware(CreateUserDto),(req:Request, res:Response) =>{
+    const body = req.body;
+    
     res.send("post /");
 });
 
