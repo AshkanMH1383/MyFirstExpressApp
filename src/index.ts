@@ -1,6 +1,7 @@
 // Import Libs
 import express from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 // Import Controllers
 import UsersControllers from './Users/UsersControllers';
@@ -20,6 +21,16 @@ app.use("/products", ProductsControllers);
 
 
 // Run Server
-app.listen(3000, () => {
-    console.log('Server is running on port 3000')
+mongoose.connect('mongodb://admin:admin@127.0.0.1:27017/',{
+    autoIndex: true,
 })
+.then(() => {
+    app.listen(3000, () => {
+        console.log('Server is running on port 3000')
+    })
+})
+.catch(error => {
+    console.log(error)
+})
+
+
