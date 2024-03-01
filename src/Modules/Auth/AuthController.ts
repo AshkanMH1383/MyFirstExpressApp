@@ -2,7 +2,7 @@
 import { Request, Response, Router } from "express";
 
 // Import Middlewares
-import { AuthMiddleware, ValidateMiddleware } from "@src/Middlewares";
+import { ValidateMiddleware } from "@src/Middlewares";
 
 // Import Dtos
 import LoginDto from "./Dtos/LoginDto";

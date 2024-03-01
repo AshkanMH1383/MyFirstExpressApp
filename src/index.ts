@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import UserController from '@Modules/User/UserController';
 import ProductsController from '@Modules/Product/ProductController';
 import AuthController from '@Modules/Auth/AuthController';
+import Logger from './Helper/Logger';
 
 
 // Express App
@@ -29,11 +30,11 @@ mongoose.connect('mongodb://admin:admin@127.0.0.1:27017/',{
 })
 .then(() => {
     app.listen(3000, () => {
-        console.log('Server is running on port 3000')
+        Logger.info('Server is running on port 3000');
     })
 })
 .catch(error => {
-    console.log(error)
+    Logger.error("error", error);
 })
 
 
