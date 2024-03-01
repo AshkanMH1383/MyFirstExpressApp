@@ -1,14 +1,16 @@
+// Import Libs
 import { Request, Response, Router } from "express";
 
-import { AuthMiddleware } from "../Middlewares";
+// Import Middlewares
+import { AuthMiddleware } from "@src/Middlewares";
 
-import { getAllProducts, getOneProduct } from "./ProductsServices";
+// Import Services
+import { getAllProducts, getOneProduct } from "./ProductServices";
 
+// Create Route
 const router = Router();
 
-//all route middleware
-//router.use(AuthMiddleware);
-
+// Routes
 router.get("/", (req:Request, res:Response) =>{
     try {
         res.send(getAllProducts());

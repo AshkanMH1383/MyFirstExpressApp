@@ -4,8 +4,10 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 
 // Import Controllers
-import UsersControllers from './Users/UsersControllers';
-import ProductsControllers from './Products/ProductsControllers';
+import UserController from '@Modules/User/UserController';
+import ProductsController from '@Modules/Product/ProductController';
+import AuthController from '@Modules/Auth/AuthController';
+
 
 // Express App
 const app = express();
@@ -16,8 +18,9 @@ app.use(express.json()); // parse to json
 
 
 // Routes Group
-app.use("/users", UsersControllers);
-app.use("/products", ProductsControllers);
+app.use("/users", UserController);
+app.use("/auth", AuthController);
+app.use("/products", ProductsController);
 
 
 // Run Server

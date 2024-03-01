@@ -1,5 +1,8 @@
+// Import Models
+import UsersModel from "./UserModel";
+
+// Import Dtos
 import User from "./Dtos/UserDto";
-import UsersModel from "./UsersModel";
 
 export const getAllUsers = () =>{
     return new Promise ( (resolve, reject) => {

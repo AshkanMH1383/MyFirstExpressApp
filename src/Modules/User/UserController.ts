@@ -1,17 +1,21 @@
+// Import Libs
 import { Request, Response, Router } from "express";
 
-import { AuthMiddleware , ValidateMiddleware} from "../Middlewares";
+// Import Middlewares
+import { AuthMiddleware, ValidateMiddleware } from "@src/Middlewares";
 
-import { createNewUser, getAllUsers, getOneUser, deleteOneUser, updateOneUser } from './UsersServices';
+// Import Services
+import { createNewUser, getAllUsers, getOneUser, deleteOneUser, updateOneUser } from './UserServices';
+
+// Import Dtos
 import CreateUserDto from "./Dtos/CreateUserDto";
 import User from "./Dtos/UserDto";
 
+// Create Routes
 const router = Router();
 
-//all route middleware
-//router.use(AuthMiddleware);
-
-router.get("/", async (req:Request, res:Response) =>{
+//Routes
+router.get("/",AuthMiddleware, async (req:Request, res:Response) =>{
     try {
         res.send(await getAllUsers());
     } catch (err :any) {
