@@ -1,5 +1,5 @@
 // Import Libs
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 
 // Import Middlewares
 import { ValidateMiddleware } from "@src/Middlewares";
@@ -15,21 +15,21 @@ import { login, register } from './AuthServices';
 const router = Router();
 
 // Routes
-router.post("/login",ValidateMiddleware(LoginDto), async (req:Request, res:Response) =>{
+router.post("/login",ValidateMiddleware(LoginDto), async (req:Request, res:Response, next : NextFunction) =>{
     try {
         const body : LoginDto = req.body;
         res.send(await login(body));
     } catch (err :any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 
-router.post("/register",ValidateMiddleware(RegisterDto), async (req:Request, res:Response) =>{
+router.post("/register",ValidateMiddleware(RegisterDto), async (req:Request, res:Response, next : NextFunction) =>{
     try {
         const body : RegisterDto = req.body;
         res.send(await register(req.body));
     } catch (err :any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 

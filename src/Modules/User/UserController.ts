@@ -1,5 +1,5 @@
 // Import Libs
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 
 // Import Middlewares
 import { AuthMiddleware, ValidateMiddleware } from "@src/Middlewares";
@@ -15,45 +15,45 @@ import User from "./Dtos/UserDto";
 const router = Router();
 
 //Routes
-router.get("/",AuthMiddleware, async (req:Request, res:Response) =>{
+router.get("/",AuthMiddleware, async (req:Request, res:Response, next: NextFunction) =>{
     try {
         res.send(await getAllUsers());
     } catch (err :any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 
-router.get("/:id", async (req:Request, res:Response) =>{
+router.get("/:id", async (req:Request, res:Response, next: NextFunction) =>{
     try {
         res.send(await getOneUser(req.params.id));
     } catch (err :any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 
-router.post("/",ValidateMiddleware(CreateUserDto), async(req:Request, res:Response) =>{
+router.post("/",ValidateMiddleware(CreateUserDto), async(req:Request, res:Response, next: NextFunction) =>{
     try {
         const body: User = req.body;
         res.send(await createNewUser(body));
     } catch (err: any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 
-router.put("/:id", async (req:Request, res:Response) =>{
+router.put("/:id", async (req:Request, res:Response, next: NextFunction) =>{
     try {
         const body: User = req.body;
         res.send(await updateOneUser(req.params.id , body));
     } catch (err :any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 
-router.delete("/:id", async(req:Request, res:Response) =>{
+router.delete("/:id", async(req:Request, res:Response, next: NextFunction) =>{
     try {
         res.send(await deleteOneUser(req.params.id));
     } catch (err :any) {
-        res.status(500).send({message: err.message});
+        next(err);
     }
 });
 

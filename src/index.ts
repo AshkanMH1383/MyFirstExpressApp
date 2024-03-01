@@ -9,6 +9,9 @@ import ProductsController from '@Modules/Product/ProductController';
 import AuthController from '@Modules/Auth/AuthController';
 import Logger from './Helper/Logger';
 
+// Import Middlewares
+import { ErrorHandelingMiddleware } from './Middlewares';
+
 
 // Express App
 const app = express();
@@ -23,6 +26,8 @@ app.use("/users", UserController);
 app.use("/auth", AuthController);
 app.use("/products", ProductsController);
 
+// Error Handeling Middleware
+app.use(ErrorHandelingMiddleware);
 
 // Run Server
 mongoose.connect('mongodb://admin:admin@127.0.0.1:27017/',{
