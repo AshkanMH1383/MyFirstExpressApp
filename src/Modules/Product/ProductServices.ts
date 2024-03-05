@@ -35,8 +35,6 @@ export const updateProduct = async (id :String , data : CreateProductDto) =>{
 }
 
 export const deleteProduct = async (id :String) =>{
-
-    const product = await ProductModel.findOneAndDelete(id);
-
+    const product = await ProductModel.findOneAndDelete({_id: id});
     return product;
 }
