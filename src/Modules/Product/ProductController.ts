@@ -1,14 +1,16 @@
 // Import Libs
 import { NextFunction, Request, Response, Router } from "express";
+import RequestDetails from 'request-details';
 
 // Import Middlewares
 import { AuthMiddleware } from "@src/Middlewares";
+import RequestDetail from "request-details";
 
 // Import Services
 import { getAllProducts, getOneProduct ,createNewProduct,deleteProduct,updateProduct } from "./ProductServices";
 import CreateProductDto from "./Dtos/CreateProductDto";
 import RequestWithUser from "@src/Types/RequestWithUser";
-import Logger from "@src/Helper/Logger";
+
 
 // Create Route
 const router = Router();
@@ -17,8 +19,13 @@ const router = Router();
 // Routes
 router.get("/", async(req:Request, res:Response, next:NextFunction) =>{
     try {
+        const requestDetail = new RequestDetail(req);
+        
+        console.log(requestDetail.getOs());
         const products = await getAllProducts();
-        res.status(200).json(products);
+        res.status(200).json({
+            products
+        });
     } catch (err :any) {
         next(err)
     }
